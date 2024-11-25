@@ -1,0 +1,46 @@
+<div class="card" [ngClass]="{' text-bg-danger': taskInput.priority=='H','text-bg-success':taskInput.priority=='L','text-bg-warning':taskInput.priority=='M'}" *ngIf="taskInput.isDelete == false">
+    <div class="card-body ">
+      <h5 class="card-title">{{taskInput.name}} ({{taskInput.getStatusText()}})</h5>
+    </div>
+    <div class="accordion accordion-flush" [id]="'accordionFlushExample'+taskInput.id">
+      <div class="accordion-item">
+        <h2 class="accordion-header" [id]="'flush-headingOne'+taskInput.id">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapseOne'+taskInput.id" aria-expanded="false" [attr.aria-controls]="'flush-collapseOne'+taskInput.id">
+            {{taskInput.description}}                </button>
+        </h2>
+        <div [id]="'flush-collapseOne'+taskInput.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-headingOne'+taskInput.id" [attr.data-bs-parent]="'#accordionFlushExample'+taskInput.id">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Prioridad: {{taskInput.getPriorityText()}}
+              <span *ngIf="(taskInput.priority=='L' || taskInput.priority=='M') && taskInput.status != 'C'">&nbsp;</span>
+              <i *ngIf="(taskInput.priority=='L' || taskInput.priority=='M') && taskInput.status != 'C'"
+                class="bi bi-arrow-up-circle-fill" (click)="raiseTaskPriority(taskInput.id)"></i>
+
+              <span *ngIf="(taskInput.priority=='H' || taskInput.priority=='M') && taskInput.status != 'C'">&nbsp;</span>
+              <i *ngIf="(taskInput.priority=='H' || taskInput.priority=='M') && taskInput.status != 'C'"
+                class="bi bi-arrow-down-circle-fill" (click)="lowerTaskPriority(taskInput.id)"></i>
+            </li>
+            <li class="list-group-item">
+              Estado: {{taskInput.getStatusText()}}
+                <i [ngClass]="{'bi bi-play-fill': taskInput.status=='P'}" (click)="changeTaskStatus(taskInput.id)"></i>
+
+                <i [ngClass]="{'bi bi-check-lg': taskInput.status=='IP'}" (click)="changeTaskStatus(taskInput.id)"></i>
+
+                <i [ngClass]="{'bi bi-arrow-return-right': taskInput.status=='C'}" (click)="changeTaskStatus(taskInput.id)"></i>
+            </li>
+            <li class="list-group-item">Expira: {{taskInput.expirationDate}}</li>
+            <li class="list-group-item">
+              <button type="button" class="btn btn-secondary" (click)="editTask(taskInput.id)">
+                <i class="bi bi-pencil-square" ></i>
+                Editar
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="deleteTask(taskInput.id)">
+                <i class="bi bi-trash" ></i>
+                Borrar
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

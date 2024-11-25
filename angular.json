@@ -30,9 +30,10 @@
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
-
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -102,6 +103,6 @@
     }
   },
   "cli": {
-    "analytics": "97f5c740-614b-4852-80ac-117741de8f96"
+    "analytics": "7877f195-b17a-49cb-baf0-99893a2d6486"
   }
 }
