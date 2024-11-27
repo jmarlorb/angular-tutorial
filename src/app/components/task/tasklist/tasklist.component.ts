@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TasklistComponent implements OnInit{
   taskList:Task[] = [];
-  
+  taskToEdit: Task | null = null;
   ngOnInit(): void {
     let task1:Task = new Task (1,"Tarea 1", "Tarea 1",TaskPriority.LOW,TaskStatus.PENDING,new Date("11/1/2024"),new Date("11/18/2024"),false);
     let task2:Task = new Task (2,"Tarea 2", "Tarea 2",TaskPriority.HIGH,TaskStatus.IN_PROGRESS,new Date("11/5/2024"),new Date("11/16/2024"),false);
@@ -36,7 +36,7 @@ export class TasklistComponent implements OnInit{
   }
 
   getTask(taskId:number):Task[]{
-    return this.taskList.filter((tarea:Task)=>{
+    return this.taskList.filter((tarea: Task) => {
       return tarea.id == taskId;
     });
   }
@@ -56,8 +56,9 @@ export class TasklistComponent implements OnInit{
     tarea.changeStatus();
   }
 
-  editTask(taskId:number){
-   console.log(`Editing Task with identifier ${taskId}`);
+  editTask(taskId: number): void {
+    this.taskToEdit = this.getTask(taskId)[0]; // Set the task to be passed to the child
+    console.log(`Editing Task with identifier ${taskId}`);
   }
 
   deleteTask(taskId:number){
@@ -65,4 +66,14 @@ export class TasklistComponent implements OnInit{
       return tarea.id != taskId;
     });
   }
+
+  onTaskCreated(task: Task): void {
+    console.log('Task received from child:', task);
+    const index = this.taskList.findIndex(t => t.id === task.id);
+    if (index !== -1) {
+      this.taskList[index] = task; 
+    } else {
+      this.taskList.push(task); 
+    this.taskToEdit = null; 
+  }}
 }
