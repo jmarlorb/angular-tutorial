@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Task, TaskPriority, TaskStatus } from '../../../models/task.model';
 import { CommonModule } from '@angular/common';
 import { TaskresumeComponent } from '../taskresume/taskresume.component';
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TasklistComponent implements OnInit{
   taskList:Task[] = [];
-  taskToEdit: Task | null = null;
+  @Output() taskToEdit: Task | null = null;
   ngOnInit(): void {
     let task1:Task = new Task (1,"Tarea 1", "Tarea 1",TaskPriority.LOW,TaskStatus.PENDING,new Date("11/1/2024"),new Date("11/18/2024"),false);
     let task2:Task = new Task (2,"Tarea 2", "Tarea 2",TaskPriority.HIGH,TaskStatus.IN_PROGRESS,new Date("11/5/2024"),new Date("11/16/2024"),false);
@@ -74,6 +74,7 @@ export class TasklistComponent implements OnInit{
       this.taskList[index] = task; 
     } else {
       this.taskList.push(task); 
+    }
     this.taskToEdit = null; 
-  }}
+  }
 }
